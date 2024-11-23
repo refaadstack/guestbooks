@@ -21,29 +21,29 @@ class FrontController extends Controller
         try {
             // Validasi input
             $request->validate([
-                'id_admin' => 'required|string',
+                'kode_guest' => 'required|string',
                 'nama' => 'required|string'
             ], [
-                'id_admin.required' => 'Kode admin harus diisi',
+                'kode_guest.required' => 'Kode admin harus diisi',
                 'nama.required' => 'Nama harus diisi'
             ]);
 
             // Cek credentials di database
-            $admin = Guest::where('id_admin', $request->id_admin)
+            $guest = Guest::where('kode_guest', $request->kode_guest)
                         ->where('nama', $request->nama)
                         ->first();
 
-            if (!$admin) {
+            if (!$guest) {
                 return redirect()->back()
                             ->withInput()
-                            ->with('error', 'Kode admin atau nama tidak valid');
+                            ->with('error', 'Kode guest atau nama tidak valid');
             }
 
-            // Simpan data admin ke session
+            // Simpan data guest ke session
             session([
-                'guest_id' => $admin->id,
-                'id_admin' => $admin->id_admin,
-                'nama_guest' => $admin->nama
+                'guest_id' => $guest->id,
+                'kode_guest' => $guest->kode_guest,
+                'nama_guest' => $guest->nama
             ]);
 
             return redirect()->route('pesan.create')
