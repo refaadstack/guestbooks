@@ -14,7 +14,7 @@ class FrontController extends Controller
     }
 
     public function loginGuest(){
-        return view('front.login-admin');
+        return view('front.login-guest');
     }
     public function guestlogin(Request $request)
     {
