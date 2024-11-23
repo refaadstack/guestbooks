@@ -18,6 +18,6 @@ class Guest extends Model
 
     public function pesan()
     {
-        return $this->hasOne(Pesan::class, 'kode_guest', 'kode_guest');
+        return $this->hasOne(Pesan::class, 'kode_guest', 'code_guest');
     }
 }

@@ -31,4 +31,5 @@ Route::resource('guest', GuestController::class);
 
 Route::resource('pesan', PesanController::class);
 
-Route::resource('admin', AdminController::class);
+Route::get('/admin/index', [AdminController::class, 'index'])->name('admin.index');
+Route::get('/admin/dashboard', [AdminController::class, 'dashboard']);

@@ -20,6 +20,30 @@
         .header i {
             font-size: 24px;
         }
+        h1 {
+            font-size: 48px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        label {
+            display: block;
+            text-align: left;
+            margin: 10px 0 5px;
+            font-size: 18px;
+        }
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #f0f2f1;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
         .title {
             font-size: 24px;
             font-weight: bold;
@@ -55,6 +79,19 @@
         .message-box textarea {
             height: 100px;
         }
+        .attachment {
+            width: 100%;
+            height: 150px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #f0f2f1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+            font-size: 18px;
+            color: #888888;
+        }
         .reply-button {
             background-color: #b0b0b0;
             border: none;
@@ -71,16 +108,22 @@
         <div class="title">GUESTBOOK</div>
         <i class="fas fa-user"></i>
     </div>
-    <div class="welcome">Welcome, Admin!</div>
+    <div class="container">
 
-    @foreach ($pesan as $item)
-        <div class="message-box">
-            <label for="name1">Name:</label>
-            <input type="text" id="name1" placeholder=" " value="{{ $item->guest->nama }}">
-            <label for="message1">Message:</label>
-            <textarea id="message1" placeholder=" ">{{ $item->isi }}</textarea>
-            <button class="reply-button"> <a href="balasan.php">Reply</a>
+        <div class="welcome">Welcome, Admin!</div>
+        
+        @foreach ($pesan as $item)
+        <label for="name">guest</label>
+        <input type="text" id="name" name="name" value="{{ $item->guest->nama }}">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="5">{{ $item->isi }}</textarea>
+        <div class="attachment">
+            <img src="{{ Storage::url($item->lampiran) }}" alt="" style="height: 100%; width:100vw"></div>
+            
+            <a href="{{ route('balasan.create', $item) }}" 
+            class="reply-button"
+            onclick="return confirm('Apakah Anda yakin ingin membalas pesan ini?')">Reply</a>
+            @endforeach
         </div>
-    @endforeach
-</body>
+        </body>
 </html>
