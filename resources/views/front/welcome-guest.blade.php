@@ -60,7 +60,7 @@
         <i class="fas fa-user"></i>
     </div>
     <div class="content">
-        <h1>Welcome, Guest!</h1>
+        <h1>Welcome, {{ session('nama_guest') }}</h1>
         <p>Send message to the bride and groom!<br>Congratulate them and share your best moment!</p>
         <div class="button">
             <button> <a href="pesan-tamu.php">send message</a>

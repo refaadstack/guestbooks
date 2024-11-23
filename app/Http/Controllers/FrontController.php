@@ -43,11 +43,21 @@ class FrontController extends Controller
             session([
                 'guest_id' => $guest->id,
                 'kode_guest' => $guest->kode_guest,
-                'nama_guest' => $guest->nama
+                'nama_guest' => $guest->nama,
+                'alamat' => $guest->alamat
             ]);
 
-            return redirect()->route('pesan.create')
-                            ->with('success', 'Login berhasil');
+             // Ambil pesan dengan eager loading untuk guest dan balasan
+                $pesan = Pesan::with(['guest', 'balasan' => function($query) {
+                    $query->orderBy('created_at', 'desc'); // Urutkan balasan dari yang terbaru
+                }])
+                ->where('code_guest', session('kode_guest')) // Gunakan guest_id, bukan code_guest
+                ->orderBy('created_at', 'desc') // Urutkan pesan dari yang terbaru
+                ->get();
+
+                // dd($pesan);
+
+            return view('front.dashboard',compact('pesan'))->with('success', 'Login berhasil');
 
         } catch (ValidationException $e) {
             return redirect()->back()
@@ -93,7 +103,7 @@ class FrontController extends Controller
                 'nama_guest' => $admin->nama
             ]);
 
-            return redirect()->route('pesan.index')
+            return redirect()->route('admin.index')
                             ->with('success', 'Login berhasil');
 
         } catch (ValidationException $e) {

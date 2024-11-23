@@ -21,6 +21,6 @@ class Pesan extends Model
 
     public function balasan()
     {
-        return $this->hasOne(Balasan::class, 'id_pesan', 'id_pesan');
+        return $this->hasOne(Balasan::class,  'pesan_id','id_pesan');
     }
 }

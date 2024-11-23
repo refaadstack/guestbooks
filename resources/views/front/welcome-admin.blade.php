@@ -72,26 +72,15 @@
         <i class="fas fa-user"></i>
     </div>
     <div class="welcome">Welcome, Admin!</div>
-    <div class="message-box">
-        <label for="name1">Name:</label>
-        <input type="text" id="name1" placeholder=" ">
-        <label for="message1">Message:</label>
-        <textarea id="message1" placeholder=" "></textarea>
-        <button class="reply-button"> <a href="balasan.php">Reply</a>
-    </div>
-    <div class="message-box">
-        <label for="name2">Name:</label>
-        <input type="text" id="name2" placeholder=" ">
-        <label for="message2">Message:</label>
-        <textarea id="message2" placeholder=" "></textarea>
-        <button class="reply-button">Reply</button>
-    </div>
-    <div class="message-box">
-        <label for="name3">Name:</label>
-        <input type="text" id="name3" placeholder=" ">
-        <label for="message3">Message:</label>
-        <textarea id="message3" placeholder=" "></textarea>
-        <button class="reply-button">Reply</button>
-    </div>
+
+    @foreach ($pesan as $item)
+        <div class="message-box">
+            <label for="name1">Name:</label>
+            <input type="text" id="name1" placeholder=" " value="{{ $item->guest->nama }}">
+            <label for="message1">Message:</label>
+            <textarea id="message1" placeholder=" ">{{ $item->isi }}</textarea>
+            <button class="reply-button"> <a href="balasan.php">Reply</a>
+        </div>
+    @endforeach
 </body>
 </html>

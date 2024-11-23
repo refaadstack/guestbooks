@@ -5,11 +5,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Roboto', sans-serif;
+            font-family: Arial, sans-serif;
             text-align: center;
             background-color: white;
             margin: 0;
             padding: 0;
+            color: #000000;
+        }
+        .container {
+            max-width: 600px;
+            margin: 30 auto;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
         }
         .header {
             display: flex;
@@ -62,14 +70,16 @@
         <i class="fas fa-user"></i>
     </div>
     <div class="welcome">Welcome!</div>
-    <div class="names">
-        Dhani<br>&<br>Rose
-    </div>
-    <div class="role-selection">
-        <h2>Choose Your Role!</h2>
-        <button> <a href="{{ route('front.login-guest') }}">Guest</a>
-        
-        <button> <a href="{{ route('front.login-Admin') }}"> Admin</a>
+    <div class="container">
+        <div class="names">
+            Dhani<br>&<br>Rose
+        </div>
+        <div class="role-selection">
+            <h2>Choose Your Role!</h2>
+            <button> <a href="{{ route('front.login-guest') }}">Guest</a>
+                
+            <button> <a href="{{ route('front.login-Admin') }}"> Admin</a>
+        </div>
     </div>
 </body>
 </html> 
