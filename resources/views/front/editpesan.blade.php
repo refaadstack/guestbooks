@@ -80,7 +80,10 @@
     <div class="header">
         <a href="{{ route('front.index') }}"><i class="fas fa-home"></i></a>
         <div class="title">GUESTBOOK</div>
-        <a href="{{ route('front.dashboard') }}"><i class="fas fa-user"></i></a>
+        <!-- Menu Dashboard Dinamis -->
+        <a href="{{ session('id_admin') ? route('admin.dashboard') : route('front.dashboard') }}">
+            <i class="fas fa-user"></i>
+        </a>
     </div>
 
     <div class="container">

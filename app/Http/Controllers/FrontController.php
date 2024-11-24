@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 class FrontController extends Controller
 {
     public function index(){
+        session()->forget(['id_admin', 'kode_guest']);
+
         return view('front.home');
     }
 

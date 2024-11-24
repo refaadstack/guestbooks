@@ -32,7 +32,7 @@ Route::resource('guest', GuestController::class);
 Route::resource('pesan', PesanController::class);
 
 Route::get('/admin/index', [AdminController::class, 'index'])->name('admin.index');
-Route::get('/admin/dashboard', [AdminController::class, 'dashboard']);
+Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 
 Route::get('/front/dashboard', [GuestController::class, 'dashboard'])->name('front.dashboard');
 Route::get('/guest/pesan/{id}/edit', [GuestController::class, 'editPesan'])->name('guest.edit-pesan');
