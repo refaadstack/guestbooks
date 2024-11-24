@@ -33,3 +33,8 @@ Route::resource('pesan', PesanController::class);
 
 Route::get('/admin/index', [AdminController::class, 'index'])->name('admin.index');
 Route::get('/admin/dashboard', [AdminController::class, 'dashboard']);
+
+Route::get('/front/dashboard', [GuestController::class, 'dashboard'])->name('front.dashboard');
+Route::get('/guest/pesan/{id}/edit', [GuestController::class, 'editPesan'])->name('guest.edit-pesan');
+Route::put('/guest/pesan/{id}', [GuestController::class, 'updatePesan'])->name('guest.update-pesan');
+Route::delete('/guest/pesan/{id}', [GuestController::class, 'deletePesan'])->name('guest.delete-pesan');

@@ -160,59 +160,6 @@
             text-align: center;
             padding: 20px;
         }
-
-        .create-message-container {
-            display: flex;
-            justify-content: center;
-            margin: 20px 0;
-        }
-
-        .create-message-btn {
-            background-color: #d3d3d3;
-            color: white;
-            padding: 12px 24px;
-            border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: background-color 0.3s ease;
-        }
-
-        .create-message-btn:hover {
-            background-color: #999696;
-        }
-
-        /* Rest of your existing styles */
-        /* Reset and Base Styles */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #ffffff;
-            color: #000000;
-            text-align: left;
-            margin: 0;
-            padding: 0;
-        }
-
-        /* Layout Components */
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .header i {
-            font-size: 24px;
-        }
-
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-        }
     </style>
 </head>
 <body>
@@ -233,26 +180,19 @@
         </div>
     </div>
 
-    <div class="create-message-container">
-        <a href="{{ route('pesan.create') }}" class="create-message-btn">
-            <i class="fas fa-plus"></i>
-            Create New Message
-        </a>
-    </div>
-
     <div class="container">
         <!-- In your existing blade file -->
     <div class="messages-section">
         @forelse ($pesan as $item)    
             <div class="message-thread" id="message-{{ $item->id_pesan }}">
                 <div class="message-actions">
-                    <a href="{{ route('guest.edit-pesan', $item->id_pesan) }}" class="btn btn-edit">
+                    <a href="{{ route('guest.edit-message', $item->id_pesan) }}" class="btn btn-edit">
                         <i class="fas fa-edit"></i> Edit
                     </a>
-                    <form action="{{ route('guest.delete-pesan', $item->id_pesan) }}" 
-                          method="POST" 
-                          style="display: inline;"
-                          onsubmit="return confirm('Are you sure you want to delete this message?')">
+                    <form action="{{ route('guest.delete-message', $item->id_pesan) }}" 
+                        method="POST" 
+                        style="display: inline;"
+                        onsubmit="return confirm('Are you sure you want to delete this message?')">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-delete">

@@ -1,177 +1,123 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guestbook</title>
+    <title>Edit Message - Guestbook</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
-         body {
+        body {
             font-family: Arial, sans-serif;
-            text-align: center;
             background-color: #ffffff;
             color: #000000;
+            margin: 0;
+            padding: 0;
         }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+        }
+
         .container {
             max-width: 600px;
             margin: 0 auto;
             padding: 20px;
         }
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 0;
+
+        .form-group {
             margin-bottom: 20px;
         }
-        .header i {
-            font-size: 24px;
-            cursor: pointer;
-        }
-        .user-info {
-            background-color: #f5f5f5;
-            padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            text-align: left;
-        }
-        h1 {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-        h2 {
-            font-size: 28px;
-            font-weight: bold;
-            margin-bottom: 30px;
-            color: #333;
-        }
-        form {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            width: 100%;
-        }
+
         label {
-            font-size: 18px;
-            margin: 10px 0 5px;
+            display: block;
+            margin-bottom: 5px;
             font-weight: bold;
         }
-        input[type="text"], textarea {
+
+        textarea {
             width: 100%;
-            padding: 12px;
-            margin-bottom: 20px;
+            padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
-            font-size: 16px;
-            box-sizing: border-box;
+            min-height: 150px;
+            margin-bottom: 10px;
         }
-        textarea {
-            height: 150px;
-            resize: vertical;
-        }
-        .attachment {
-            display: flex;
-            align-items: center;
-            width: 100%;
-            margin-bottom: 20px;
-        }
-        .attachment input[type="file"] {
-            flex: 1;
-            padding: 10px;
-        }
-        .submit-button {
-            width: 100%;
-            padding: 15px;
+
+        .btn {
+            padding: 10px 20px;
             border: none;
             border-radius: 5px;
-            background-color: #333;
-            color: white;
-            font-size: 18px;
-            font-weight: bold;
             cursor: pointer;
-            transition: background-color 0.3s;
+            font-size: 16px;
+            text-decoration: none;
         }
-        .submit-button:hover {
-            background-color: #555;
+
+        .btn-primary {
+            background-color: #007bff;
+            color: white;
         }
-        .alert {
-            padding: 15px;
-            margin-bottom: 20px;
+
+        .btn-secondary {
+            background-color: #6c757d;
+            color: white;
+            margin-left: 10px;
+        }
+
+        .attachment-preview {
+            margin-top: 20px;
+        }
+
+        .attachment-preview img {
+            max-width: 100%;
+            height: auto;
             border-radius: 5px;
-            text-align: center;
-        }
-        .alert-success {
-            background-color: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-        .alert-danger {
-            background-color: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
         }
     </style>
 </head>
 <body>
+    <div class="header">
+        <i class="fas fa-edit"></i>
+        <div class="title">Edit Message</div>
+        <a href="{{ route('front.dashboard') }}" class="fas fa-times"></a>
+    </div>
+
     <div class="container">
-        <div class="header">
-            <a href="#"><i class="fas fa-home"></i></a>
-            <a href="#" 
-               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                <i class="fas fa-sign-out-alt"></i>
-            </a>
-            <form id="logout-form" action="#" method="POST" style="display: none;">
-                @csrf
-            </form>
-        </div>
-
-        <div class="user-info">
-            <p><strong>Guest Code:</strong> {{ session('kode_guest') }}</p>
-            <p><strong>Name:</strong> {{ session('nama_guest') }}</p>
-        </div>
-
-        <h1>GUESTBOOK</h1>
-        <h2>Send Your Message</h2>
-
-        @if(session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
-
         @if(session('error'))
             <div class="alert alert-danger">
                 {{ session('error') }}
             </div>
         @endif
 
-        <form action="{{ route('pesan.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('guest.update-pesan', $pesan->id_pesan) }}" method="POST">
             @csrf
-            <input type="hidden" name="code_guest" value="{{ session('kode_guest') }}">
+            @method('PUT')
             
-            <label for="isi">Message</label>
-            <textarea id="isi" 
-                      name="isi" 
-                      placeholder="Fill out your message here!" 
-                      required>{{ old('isi') }}</textarea>
-            @error('isi')
-                <div class="alert alert-danger">{{ $message }}</div>
-            @enderror
-            
-            <label for="lampiran">Attachment</label>
-            <div class="attachment">
-                <input type="file" 
-                       id="lampiran" 
-                       name="lampiran" 
-                       accept="image/*">
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea 
+                    name="message" 
+                    id="message" 
+                    rows="6">{{ old('message', $pesan->isi) }}</textarea>
+                @error('message')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
             </div>
-            @error('lampiran')
-                <div class="alert alert-danger">{{ $message }}</div>
-            @enderror
-            
-            <button type="submit" class="submit-button">Send Message</button>
+        
+            @if($pesan->lampiran)
+                <div class="attachment-preview">
+                    <label>Current Attachment</label>
+                    <img src="{{ Storage::url($pesan->lampiran) }}" alt="Message attachment">
+                </div>
+            @endif
+        
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Update Message</button>
+                <a href="{{ route('front.dashboard') }}" class="btn btn-secondary">Cancel</a>
+            </div>
         </form>
     </div>
 </body>
+</html>
 </html>
