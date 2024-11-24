@@ -283,10 +283,33 @@
                     @if($item->lampiran)
                         <div class="attachment-container">
                             <img src="{{ Storage::url($item->lampiran) }}" 
-                                alt="Message attachment">
+                                alt="Message attachment" style="max-width: 400px">
                         </div>
                     @endif
                 </div>
+                <div class="replies-container">
+                        <h4>Balasan:</h4>
+                        @if($item->balasan)
+                            <div class="reply-item">
+                                <div class="reply-header">
+                                    <span>
+                                        <i class="fas fa-user-circle"></i> 
+                                        Admin 
+                                    </span>
+                                    <span class="timestamp">
+                                        - {{ $item->balasan->created_at->format('d M Y H:i') }}
+                                    </span>
+                                </div>
+                                <div class="reply-content">
+                                    {{ $item->balasan->isi_balasan }}
+                                </div>
+                            </div>
+                        @else
+                            <div class="no-replies">
+                                Belum ada balasan untuk pesan ini
+                            </div>
+                        @endif
+                    </div>
 
                 <!-- Replies section remains the same -->
             </div>

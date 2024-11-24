@@ -136,7 +136,6 @@
                     value="{{ $item->guest->nama ?? 'Unknown Guest' }}" 
                     readonly>
                 </div>
-                
                 <div class="form-group">
                     <label for="message_{{ $item->id }}">Message</label>
                     <textarea 
@@ -151,9 +150,9 @@
                 <div class="attachment-container">
                                 <img src="{{ Storage::url($item->lampiran) }}" 
                                      alt="Message attachment" style="max-width: 400px">
-                            </div>
-                        @endif
-                    </div>
+                </div>
+                 @endif
+            </div>
 
                     <div class="replies-container">
                         <h4>Balasan:</h4>
@@ -178,7 +177,7 @@
                             </div>
                         @endif
                     </div>
-                </div>
+        </div>
             @empty
             <div class="message-thread">
                 <div class="no-replies">
