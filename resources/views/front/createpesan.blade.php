@@ -116,14 +116,9 @@
 <body>
     <div class="container">
         <div class="header">
-            <a href="#"><i class="fas fa-home"></i></a>
-            <a href="#" 
-               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                <i class="fas fa-sign-out-alt"></i>
-            </a>
-            <form id="logout-form" action="#" method="POST" style="display: none;">
-                @csrf
-            </form>
+            <a href="{{ route('front.index') }}"><i class="fas fa-home"></i></a>
+            <div class="title">GUESTBOOK</div>
+            <a href="{{ route('front.dashboard') }}"><i class="fas fa-user"></i></a>
         </div>
 
         <div class="user-info">

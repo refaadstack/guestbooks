@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
     <title>Guestbook</title>
@@ -7,23 +8,25 @@
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            background-color: white;
+            background-color: #BED7DC;
             margin: 0;
             padding: 0;
             color: #000000;
         }
         .container {
             max-width: 600px;
-            margin: 30 auto;
+            margin: 30px auto;
             padding: 20px;
             display: flex;
             justify-content: space-between;
+            align-items: flex-start; /* Nama di kiri, role di kanan */
         }
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 20px;
+            color: #C8A1E0;
         }
         .header i {
             font-size: 24px;
@@ -36,38 +39,53 @@
             font-size: 48px;
             font-weight: bold;
             margin-top: 50px;
+            color: #E5DDC5;
         }
         .names {
             font-family: 'Great Vibes', cursive;
             font-size: 48px;
             margin: 20px 0;
+            text-align: left; /* Nama tetap rata kiri */
+            color: #674188;
+
         }
         .role-selection {
             margin-top: 20px;
+            display: flex;
+            flex-direction: column; /* Role dibuat vertikal */
+            align-items: center;
         }
         .role-selection h2 {
             font-size: 24px;
             font-weight: bold;
+            margin-bottom: 20px;
         }
         .role-selection button {
             font-size: 18px;
             padding: 10px 20px;
-            margin: 10px;
+            margin: 10px 0; /* Jarak antar tombol */
             border: none;
             border-radius: 5px;
-            background-color: #e0e0e0;
+            background-color:#E2BFD9;
             cursor: pointer;
+            width: 200px; /* Ukuran tombol konsisten */
+            text-align: center;
+        }
+        .role-selection button a {
+            text-decoration: none;
+            color: #000;
+            display: block; /* Area tautan mencakup seluruh tombol */
         }
         .role-selection button:hover {
-            background-color: #d0d0d0;
+            background-color: #d8a2ca;
         }
     </style>
 </head>
 <body>
     <div class="header">
-        <i class="fas fa-home"></i>
+        <a href="{{ route('front.index') }}"><i class="fas fa-home"></i></a>
         <div class="title">GUESTBOOK</div>
-        <i class="fas fa-user"></i>
+        <a href="{{ route('front.dashboard') }}"><i class="fas fa-user"></i></a>
     </div>
     <div class="welcome">Welcome!</div>
     <div class="container">
@@ -76,10 +94,13 @@
         </div>
         <div class="role-selection">
             <h2>Choose Your Role!</h2>
-            <button> <a href="{{ route('front.login-guest') }}">Guest</a>
-                
-            <button> <a href="{{ route('front.login-Admin') }}"> Admin</a>
+            <button>
+                <a href="{{ route('front.login-guest') }}">Guest</a>
+            </button>
+            <button>
+                <a href="{{ route('front.login-Admin') }}">Admin</a>
+            </button>
         </div>
     </div>
 </body>
-</html> 
+</html>

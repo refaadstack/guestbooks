@@ -93,37 +93,125 @@
             color: #888888;
         }
         .reply-button {
-            background-color: #b0b0b0;
+            background-color: #d3d3d3;
+            color: white;
             border: none;
             border-radius: 5px;
             padding: 10px 20px;
             font-weight: bold;
             cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+        .reply-button:hover {
+            background-color: #636060;
+        }
+        .no-replies {
+            padding: 15px;
+            color: #666;
+            text-align: center;
+            border-top: 1px solid #eee;
+            margin-top: 10px;
+        }
+        .replies-container {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+        .reply-item {
+            padding: 10px;
+            background-color: white;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .reply-header {
+            color: #666;
+            margin-bottom: 5px;
+        }
+        .reply-content {
+            padding: 10px 0;
         }
     </style>
 </head>
 <body>
     <div class="header">
-        <i class="fas fa-home"></i>
+        <a href="{{ route('front.index') }}"><i class="fas fa-home"></i></a>
         <div class="title">GUESTBOOK</div>
-        <i class="fas fa-user"></i>
+        <a href="{{ route('front.dashboard') }}"><i class="fas fa-user"></i></a>
     </div>
     <div class="container">
+        <div class="welcome">Welcome, {{ session('nama') }}</div>
 
-        <div class="welcome">Welcome, Admin!</div>
-        
-        @foreach ($pesan as $item)
-        <label for="name">guest</label>
-        <input type="text" id="name" name="name" value="{{ $item->guest->nama }}">
-        <label for="message">Message</label>
-        <textarea id="message" name="message" rows="5">{{ $item->isi }}</textarea>
-        <div class="attachment">
-            <img src="{{ Storage::url($item->lampiran) }}" alt="" style="height: 100%; width:100vw"></div>
-            
-            <a href="{{ route('balasan.create', $item) }}" 
-            class="reply-button"
-            onclick="return confirm('Apakah Anda yakin ingin membalas pesan ini?')">Reply</a>
-            @endforeach
+        <div class="messages-section">
+            @forelse ($pesan as $item)    
+            <div class="message-thread">
+                <div class="message-main">
+                    <div class="form-group">
+                        <label for="guest_name_{{ $item->id }}">Guest</label>
+                        <input type="text" 
+                        class="form-control"
+                        id="guest_name_{{ $item->id }}" 
+                        value="{{ $item->guest->nama ?? 'Unknown Guest' }}" 
+                        readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="message_{{ $item->id }}">Message</label>
+                        <textarea 
+                        class="form-control"
+                        id="message_{{ $item->id }}" 
+                        readonly
+                        rows="4"
+                        >{{ $item->isi ?? '' }}</textarea>
+                    </div>
+                    
+                    @if($item->lampiran)
+                        <div class="attachment-container">
+                            <img src="{{ Storage::url($item->lampiran) }}" 
+                                alt="Message attachment" style="max-width: 400px">
+                        </div>
+                    @endif
+                </div>
+                <div class="replies-container">
+                    <h4>Balasan:</h4>
+                    @if($item->balasan)
+                        <div class="reply-item">
+                            <div class="reply-header">
+                                <span>
+                                    <i class="fas fa-user-circle"></i> 
+                                    Admin 
+                                </span>
+                                <span class="timestamp">
+                                    - {{ $item->balasan->created_at->format('d M Y H:i') }}
+                                </span>
+                            </div>
+                            <div class="reply-content">
+                                {{ $item->balasan->isi_balasan }}
+                            </div>
+                        </div>
+                    @else
+                        <div class="no-replies">
+                            Belum ada balasan untuk pesan ini
+                            <br>
+                            <a href="{{ route('balasan.create', $item->id_pesan) }}" 
+                                class="reply-button"
+                                onclick="return confirm('Apakah Anda yakin ingin membalas pesan ini?')">
+                                <i class="fas fa-reply"></i> Reply
+                            </a>
+                        </div>
+                    @endif
+                </div>
+            </div>
+            @empty
+                <div class="message-thread">
+                    <div class="no-replies">
+                        Tidak ada pesan
+                    </div>
+                </div>
+            @endforelse       
         </div>
-        </body>
+    </div>
+</body>
 </html>

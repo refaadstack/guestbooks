@@ -78,9 +78,9 @@
 </head>
 <body>
     <div class="header">
-        <i class="fas fa-edit"></i>
-        <div class="title">Edit Message</div>
-        <a href="{{ route('front.dashboard') }}" class="fas fa-times"></a>
+        <a href="{{ route('front.index') }}"><i class="fas fa-home"></i></a>
+        <div class="title">GUESTBOOK</div>
+        <a href="{{ route('front.dashboard') }}"><i class="fas fa-user"></i></a>
     </div>
 
     <div class="container">

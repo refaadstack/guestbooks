@@ -45,13 +45,9 @@
 </head>
 <body>
     <div class="header">
-        <div class="icon">
-            <i class="fas fa-home"></i>
-        </div>
+        <a href="{{ route('front.index') }}"><i class="fas fa-home"></i></a>
         <div class="title">GUESTBOOK</div>
-        <div class="icon">
-            <i class="fas fa-user"></i>
-        </div>
+        <a href="{{ route('front.dashboard') }}"><i class="fas fa-user"></i></a>
     </div>
     <div class="content">
         <h1>Thank you!</h1>

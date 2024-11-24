@@ -185,7 +185,7 @@
                 </div>
             </div>
             @endforelse
-        </div>
+    </div>
     </div>
 </div>
 </body>

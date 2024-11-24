@@ -85,8 +85,8 @@
     <div class="container">
         <div class="header">
             <a href="{{ route('front.index') }}"><i class="fas fa-home"></i></a>
-            <h1>GUESTBOOK</h1>
-            <i class="fas fa-user"></i>
+            <div class="title">GUESTBOOK</div>
+            <a href="{{ route('front.dashboard') }}"><i class="fas fa-user"></i></a>
         </div>
         <h2>Reply!</h2>
         

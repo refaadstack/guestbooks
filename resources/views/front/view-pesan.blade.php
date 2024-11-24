@@ -69,24 +69,73 @@
 </head>
 <body>
     <div class="header">
-        <i class="fas fa-home"></i>
-        <span>GUESTBOOK</span>
-        <i class="fas fa-user"></i>
+        <a href="{{ route('front.index') }}"><i class="fas fa-home"></i></a>
+        <div class="title">GUESTBOOK</div>
+        <a href="{{ route('front.dashboard') }}"><i class="fas fa-user"></i></a>
     </div>
     <div class="container">
-        <h1>Message!</h1>
-            @foreach ($pesan as $pesan)    
-                <label for="name">guest</label>
-                <input type="text" id="name" name="name" value="{{ $pesan->guest->nama }}">
-                <label for="message">Message</label>
-                <textarea id="message" name="message" rows="5">{{ $pesan->isi }}</textarea>
-                <div class="attachment">
-                    <img src="{{ Storage::url($pesan->lampiran) }}" alt="" style="height: 100%; width:100vw"></div>
-
-                    <a href="{{ route('balasan.create', $pesan) }}" 
-                    class="reply-button"
-                    onclick="return confirm('Apakah Anda yakin ingin membalas pesan ini?')">Reply</a>
-            @endforeach
+        <div class="messages-section">
+            @forelse ($pesan as $item)    
+            <div class="message-thread">
+                <div class="message-main">
+                    <div class="form-group">
+                        <label for="guest_name_{{ $item->id }}">Guest</label>
+                        <input type="text" 
+                        class="form-control"
+                        id="guest_name_{{ $item->id }}" 
+                        value="{{ $item->guest->nama ?? 'Unknown Guest' }}" 
+                        readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="message_{{ $item->id }}">Message</label>
+                        <textarea 
+                        class="form-control"
+                        id="message_{{ $item->id }}" 
+                        readonly
+                        rows="4"
+                        >{{ $item->isi ?? '' }}</textarea>
+                    </div>
+                    
+                    @if($item->lampiran)
+                    <div class="attachment-container">
+                                    <img src="{{ Storage::url($item->lampiran) }}" 
+                                         alt="Message attachment" style="max-width: 400px">
+                    </div>
+                     @endif
+                </div>
+    
+                        <div class="replies-container">
+                            <h4>Balasan:</h4>
+                            @if($item->balasan)
+                                <div class="reply-item">
+                                    <div class="reply-header">
+                                        <span>
+                                            <i class="fas fa-user-circle"></i> 
+                                            Admin 
+                                        </span>
+                                        <span class="timestamp">
+                                            - {{ $item->balasan->created_at->format('d M Y H:i') }}
+                                        </span>
+                                    </div>
+                                    <div class="reply-content">
+                                        {{ $item->balasan->isi_balasan }}
+                                    </div>
+                                </div>
+                            @else
+                                <div class="no-replies">
+                                    Belum ada balasan untuk pesan ini
+                                </div>
+                            @endif
+                        </div>
+            </div>
+                @empty
+                <div class="message-thread">
+                    <div class="no-replies">
+                        No messages yet
+                    </div>
+                </div>
+                @endforelse
+        </div>
 
     </div>
 </body>

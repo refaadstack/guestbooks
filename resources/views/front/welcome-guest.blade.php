@@ -55,9 +55,9 @@
 </head>
 <body>
     <div class="header">
-        <i class="fas fa-home"></i>
+        <a href="{{ route('front.index') }}"><i class="fas fa-home"></i></a>
         <div class="title">GUESTBOOK</div>
-        <i class="fas fa-user"></i>
+        <a href="{{ route('front.dashboard') }}"><i class="fas fa-user"></i></a>
     </div>
     <div class="content">
         <h1>Welcome, {{ session('nama_guest') }}</h1>
